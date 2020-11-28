@@ -135,10 +135,11 @@ export class GameView extends LitElement {
       </style>
       <div class="content-container">
         <wc-text-highlightable textWithMarker="${this.quoteText}"></wc-text-highlightable>
-        <div class="author-text">
+        <div class="author-text" data-qa="quote-author">
           ${this.author}
         </div>
         <div
+          data-qa="input-quote-text"
           class="insert-text"
           tabindex="-1"
           @keypress="${(event: KeyboardEvent): void => this.getKeyPress(event)}"

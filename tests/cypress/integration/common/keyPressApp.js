@@ -21,7 +21,7 @@ When('I see a text', function () {
         .shadow()
         .find('div[class="content-container"] > wc-text-highlightable')
         .shadow()
-        .find('div[class="text-highlightable"]')
+        .find('[data-qa="quote-text"]')
         .should('exist')
         .should('be.visible').as('text')
 
@@ -39,7 +39,10 @@ Then('I write the text', function(){
         .shadow()
         .find('game-view')
         .shadow()
-        .find('div[class="content-container"] div').eq(0).type(text)
+        .find('div[class="content-container"]')
+        .find('[data-qa="input-quote-text"]')
+        // .shadow()
+        .type(text)
 })
 
 Then('I see a navbar', function(){
@@ -54,8 +57,6 @@ Then('I see a navbar', function(){
     cy.get('@navbar').find('[data-qa="home"]').should('be.visible')
     cy.get('@navbar').find('[data-qa="training"]').should('be.visible')
     cy.get('@navbar').find('[data-qa="donate"]').should('be.visible')
-    cy.get('@navbar').find('[data-qa="pinco"]').should('be.visible')
-    cy.get('@navbar').find('[data-qa="pallo"]').should('be.visible')
 })
 
 
