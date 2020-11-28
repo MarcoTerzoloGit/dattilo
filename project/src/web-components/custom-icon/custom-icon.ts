@@ -1,5 +1,4 @@
 import { customElement, html, LitElement, property, TemplateResult } from 'lit-element';
-import './custom-icon.html';
 import './custom-icon.scss';
 
 @customElement('wc-custom-icon')
@@ -7,7 +6,7 @@ export class CustomIcon extends LitElement {
   @property({ type: String }) private iconName = 'icon-plus';
   @property({ type: Number }) private height = 32;
   @property({ type: Number }) private width = 32;
-  @property({ type: String }) private color = 'white';
+  @property({ type: String }) private color = '#32a9e2';
 
   public render(): TemplateResult {
     return html`
