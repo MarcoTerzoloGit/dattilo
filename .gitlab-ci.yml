@@ -1,16 +1,13 @@
 include: '/tests/.gitlab-ci.yml'
 stages:
   - build
-  - test
   - deploy
+  
 jobBuild:
   stage: build
   script:
     - echo "Job build eseguito"
-# jobTest:
-#   stage: test
-#   script:
-#     - echo "Job test eseguito"
+
 jobDeploy:
   stage: deploy
   script:
