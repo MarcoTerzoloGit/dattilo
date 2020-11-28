@@ -1,0 +1,8 @@
+{
+  "baseUrl":"http://localhost:8080/",
+  "testFiles": "**/*.{feature,features}",
+  "chromeWebSecurity": false,
+  "requestTimeout":30000,
+  "responseTimeout":30000,
+  "experimentalShadowDomSupport": true
+}
