@@ -25,26 +25,39 @@ When('I see a text', function () {
         .should('exist')
         .should('be.visible').as('text')
 
-    cy.get('@text').invoke('text').then(text=>{
+    cy.get('@text').invoke('text').then(text => {
         cy.log(text)
-        this.map.set('text', text.trim())
-        
+        this.map.set('writedText', text.trim())
+
     })
 })
 
-Then('I write the text', function(){
+Then('I write the text', function () {
     cy.log(this.map)
-    const text = this.map.get('text')
+    const text = this.map.get('writedText')
     cy.get('body home-page')
         .shadow()
         .find('game-view')
         .shadow()
         .find('div[class="content-container"]')
         .find('[data-qa="input-quote-text"]').as('writeText')
-        .type(text, {force: true})
+        .type(text, { force: true })
+
+    cy.get('body home-page')
+        .shadow()
+        .find('game-view')
+        .shadow()
+        .find('div[class="content-container"]')
+        .find('wc-text-highlightable')
+        .shadow()
+        .find('[data-qa="quote-text"')
+        .find('[data-qa="quote-highLighted-text"]').invoke('text').then(highLightedText => {
+            this.map.set('highLightedText', highLightedText)
+            // expect(highLightedText.trim()).to.be.equal(writedText.trim())
+        })
 })
 
-Then('I see a navbar', function(){
+Then('I see a navbar', function () {
     cy.get('body home-page')
         .shadow()
         .find('wc-navbar')
@@ -58,20 +71,11 @@ Then('I see a navbar', function(){
     cy.get('@navbar').find('[data-qa="donate"]').should('be.visible')
 })
 
-And('the system highlights the text writed', function(){
-    cy.get('@writeText').invoke('text').then(writeText=>{
-        cy.get('body home-page')
-        .shadow()
-        .find('game-view')
-        .shadow()
-        .find('div[class="content-container"]')
-        .find('wc-text-highlightable')
-        .shadow()
-        .find('[data-qa="quote-text"')
-        .find('[data-qa="quote-highLighted-text"]').invoke('text').then(highLightedText=>{
-            expect(highLightedText.trim()).to.be.equal(writeText.trim())
-        })
-    })
+And('the system highlights the text writed', function () {
+    var writedText = this.map.get('writedText')
+    var highLightedText = this.map.get('highLightedText')
+    
+    expect(highLightedText.trim()).to.be.equal(writedText.trim())
 })
 
 
