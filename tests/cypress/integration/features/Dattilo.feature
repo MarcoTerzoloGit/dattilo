@@ -1,4 +1,4 @@
-Feature: KeypressApp
+Feature: Dattilo
 
     Test e2e for keyPressApp
 
