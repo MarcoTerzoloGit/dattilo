@@ -40,8 +40,7 @@ Then('I write the text', function(){
         .find('game-view')
         .shadow()
         .find('div[class="content-container"]')
-        .find('[data-qa="input-quote-text"]')
-        // .shadow()
+        .find('[data-qa="input-quote-text"]').as('writeText')
         .type(text, {force: true})
 })
 
@@ -57,6 +56,22 @@ Then('I see a navbar', function(){
     cy.get('@navbar').find('[data-qa="home"]').should('be.visible')
     cy.get('@navbar').find('[data-qa="training"]').should('be.visible')
     cy.get('@navbar').find('[data-qa="donate"]').should('be.visible')
+})
+
+And('the system highlights the text writed', function(){
+    cy.get('@writeText').invoke('text').then(writeText=>{
+        cy.get('body home-page')
+        .shadow()
+        .find('game-view')
+        .shadow()
+        .find('div[class="content-container"]')
+        .find('wc-text-highlightable')
+        .shadow()
+        .find('[data-qa="quote-text"')
+        .find('[data-qa="quote-highLighted-text"]').invoke('text').then(highLightedText=>{
+            expect(highLightedText.trim()).to.be.equal(writeText.trim())
+        })
+    })
 })
 
 
