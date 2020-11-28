@@ -1,0 +1,18 @@
+stages:
+  - build
+  - test
+  - deploy
+jobBuild:
+  stage: build
+  script:
+    - echo "Job build eseguito"
+jobTest:
+  stage: test
+  script:
+    - cd test
+    - npm install
+    - npx cypress run
+jobDeploy:
+  stage: deploy
+  script:
+    - echo "Job deploy eseguito"  
