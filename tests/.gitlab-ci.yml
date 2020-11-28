@@ -11,10 +11,6 @@ cache:
     paths:
         - node_modules/
 
-stages:
-    - build-test
-    - e2e-test
-
 before_script:
     - set -e
     - if [ "$CI_JOB_NAME" = "build-test:go" ]; then apk update && apk add --no-cache build-base git curl bash docker; fi
