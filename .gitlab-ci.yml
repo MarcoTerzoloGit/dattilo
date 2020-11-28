@@ -1,8 +1,9 @@
 include: '/tests/.gitlab-ci.yml'
 stages:
   - build
+  - test
   - deploy
-  
+
 jobBuild:
   stage: build
   script:
