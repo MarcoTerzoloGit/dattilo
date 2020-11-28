@@ -126,6 +126,12 @@ export class GameView extends LitElement {
             opacity: 0;
           }
         }
+
+        @media screen and (max-width: 800px) {
+          .box-container {
+            display: none;
+          }
+        }
       </style>
       <div class="content-container">
         <wc-text-highlightable textWithMarker="${this.quoteText}"></wc-text-highlightable>
@@ -142,23 +148,19 @@ export class GameView extends LitElement {
           ${this.value}<wc-blinkin-cursor></wc-blinkin-cursor>
         </div>
 
-        <div>
-          <!-- <p>stats ${this.quoteText === `${this.value}#` ? 'COMPLETE' : 'not completed'}</p>
-          expected character -->
-          <div class="box-container">
-            <div class="box" id="letter-box" style="${`background-color: ${generateColor()}`}">
-              <p>${this.expectedCharacter === ' ' ? '-' : this.expectedCharacter}</p>
-            </div>
-            <div class="box animated-character" id="animated-box">
-              <p>${this.expectedCharacter === ' ' ? '-' : this.expectedCharacter}</p>
-            </div>
+        <div class="box-container">
+          <div class="box" id="letter-box" style="${`background-color: ${generateColor()}`}">
+            <p>${this.expectedCharacter === ' ' ? '-' : this.expectedCharacter}</p>
           </div>
-          <!-- <p>expeced character index ${this.expectedCharacterIndex}</p>
+          <div class="box animated-character" id="animated-box">
+            <p>${this.expectedCharacter === ' ' ? '-' : this.expectedCharacter}</p>
+          </div>
+        </div>
+        <!-- <p>expeced character index ${this.expectedCharacterIndex}</p>
           <p>last inserted character ${this.lastCharacter}</p>
           <p>value ${this.value}</p>
           <p>quoteText ${this.quoteText}</p>
           <p>equals? ${this.quoteText === `${this.value}#`}</p> -->
-        </div>
       </div>
     `;
   }
