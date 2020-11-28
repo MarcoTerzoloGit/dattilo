@@ -9,8 +9,7 @@ Feature: Dattilo
         Then I write the text
             And the system highlights the text writed
 
-    @focus
-    Scenario: write text test
+    Scenario: quotes api test
         Given I access to app
         Then the system return correct quote and author
 
