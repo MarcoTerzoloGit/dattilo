@@ -9,7 +9,7 @@ jobBuild:
 jobTest:
   stage: test
   script:
-    - cd test
+    - cd tests
     - npm install
     - npx cypress run
 jobDeploy:
