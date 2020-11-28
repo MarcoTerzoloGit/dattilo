@@ -1,7 +1,5 @@
-stages:
-  - test
-
 jobTest:
   stage: test
   script:
-    - echo "Job test eseguito"
+    - npm install
+    - cypress run
