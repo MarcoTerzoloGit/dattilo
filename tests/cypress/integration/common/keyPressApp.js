@@ -42,7 +42,7 @@ Then('I write the text', function(){
         .find('div[class="content-container"]')
         .find('[data-qa="input-quote-text"]')
         // .shadow()
-        .type(text)
+        .type(text, {force: true})
 })
 
 Then('I see a navbar', function(){
