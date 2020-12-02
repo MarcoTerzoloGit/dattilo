@@ -2,6 +2,8 @@ import { customElement, html, LitElement, property, query, TemplateResult } from
 import { generateColor } from '../../utils/color-generator';
 import '../../web-components/text-highlightable/text-highlightable';
 import '../../web-components/blinkin-cursor/blinkin-cursor';
+import '../../web-components/chips/chip-stats/chip-stats';
+import { ChipStatsConfigInterface } from '../../web-components/chips/chip-stats/chip-stats.interface';
 
 @customElement('game-view')
 export class GameView extends LitElement {
@@ -31,6 +33,13 @@ export class GameView extends LitElement {
 
   @property()
   private textReady: boolean;
+
+  @property()
+  private chipConfig: ChipStatsConfigInterface = {
+    label: 'icon', // TODO show icon isntead of text
+    chipType: 'completion',
+    value: 25,
+  };
 
   public render(): TemplateResult {
     this.expectedCharacter = this.quoteText[this.expectedCharacterIndex];
@@ -156,6 +165,9 @@ export class GameView extends LitElement {
             <p>${this.expectedCharacter === ' ' ? '-' : this.expectedCharacter}</p>
           </div>
         </div>
+
+        <wc-chip-stats .chipConfig=${this.chipConfig}></wc-chip-stats>
+
         <!-- <p>expeced character index ${this.expectedCharacterIndex}</p>
           <p>last inserted character ${this.lastCharacter}</p>
           <p>value ${this.value}</p>
