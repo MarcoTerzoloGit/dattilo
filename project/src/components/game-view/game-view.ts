@@ -78,8 +78,12 @@ export class GameView extends LitElement {
         }
 
         .content-container {
-          max-height: calc(100vh - 320px);
+          /* max-height: calc(100vh - 320px); */
           padding-top: 20px;
+          position: absolute;
+          top: 60px;
+          z-index: 1;
+          width: 98%;
         }
 
         .author-text {
@@ -169,6 +173,11 @@ export class GameView extends LitElement {
         @media screen and (max-width: 800px) {
           .box-container {
             display: none;
+          }
+
+          .chip-div {
+            flex-direction: column;
+            align-items: center;
           }
         }
       </style>

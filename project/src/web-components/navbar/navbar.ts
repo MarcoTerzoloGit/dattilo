@@ -13,13 +13,15 @@ export class Navbar extends LitElement {
         }
 
         .navbar {
-          position: relative;
+          position: absolute;
+          z-index: 2;
           width: 100%;
           height: 80px;
           display: flex;
           justify-content: space-around;
           align-items: center;
           box-shadow: -2px 3px 20px 0px #00000024;
+          background-color: #fff;
         }
 
         .nav-item {

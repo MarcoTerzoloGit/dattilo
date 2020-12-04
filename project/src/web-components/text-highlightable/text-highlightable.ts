@@ -10,6 +10,9 @@ export class TextHighlightable extends LitElement {
         :root {
           --wc-button__theme__background-color: red;
         }
+        .text-highlightable {
+          width: 100%;
+        }
         .highlighted {
           border-bottom: 4px solid #36e10f;
         }
