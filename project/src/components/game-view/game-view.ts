@@ -4,6 +4,7 @@ import '../../web-components/text-highlightable/text-highlightable';
 import '../../web-components/blinkin-cursor/blinkin-cursor';
 import '../../web-components/chips/chip-stats/chip-stats';
 import { ChipStatsConfigInterface } from '../../web-components/chips/chip-stats/chip-stats.interface';
+import { updateProgressService, updateScoreService, updateSpeedService } from './services/update-stats.service';
 
 @customElement('game-view')
 export class GameView extends LitElement {
@@ -14,7 +15,7 @@ export class GameView extends LitElement {
   private animatedBox: HTMLDivElement;
 
   @property()
-  private value = '';
+  private insertedText = '';
 
   @property()
   private quoteText: string;
@@ -35,11 +36,35 @@ export class GameView extends LitElement {
   private textReady: boolean;
 
   @property()
-  private chipConfig: ChipStatsConfigInterface = {
-    label: 'icon', // TODO show icon isntead of text
-    chipType: 'completion',
-    value: 25,
+  private updateSpeedService: Function;
+
+  @property()
+  private chipConfig: {
+    completion: ChipStatsConfigInterface;
+    speed: ChipStatsConfigInterface;
+    score: ChipStatsConfigInterface;
+  } = {
+    completion: {
+      label: 'icon-percent',
+      chipType: 'completion',
+      value: 0,
+    },
+    speed: {
+      label: 'icon-stopwatch',
+      chipType: 'speed',
+      value: 0,
+    },
+    score: {
+      label: 'icon-bar-chart',
+      chipType: 'score',
+      value: 0,
+    },
   };
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.updateSpeedService = updateSpeedService();
+  }
 
   public render(): TemplateResult {
     this.expectedCharacter = this.quoteText[this.expectedCharacterIndex];
@@ -111,6 +136,11 @@ export class GameView extends LitElement {
           animation: roll-out-right 0.4s linear both;
         }
 
+        .chip-div {
+          display: flex;
+          justify-content: space-around;
+        }
+
         /* @-webkit-keyframes roll-out-right {
           0% {
             -webkit-transform: translateX(0) rotate(0deg);
@@ -155,7 +185,7 @@ export class GameView extends LitElement {
           @click="${(event: KeyboardEvent): void => this.toggleCaret('on')}"
           @blur="${(event: KeyboardEvent): void => this.toggleCaret('off')}"
         >
-          ${this.value}<wc-blinkin-cursor></wc-blinkin-cursor>
+          ${this.insertedText}<wc-blinkin-cursor></wc-blinkin-cursor>
         </div>
 
         <div class="box-container">
@@ -167,15 +197,41 @@ export class GameView extends LitElement {
           </div>
         </div>
 
-        <wc-chip-stats .chipConfig=${this.chipConfig}></wc-chip-stats>
+        <div class="chip-div">
+          <wc-chip-stats .chipConfig=${this.chipConfig.completion}></wc-chip-stats>
+          <wc-chip-stats .chipConfig=${this.chipConfig.score}></wc-chip-stats>
+          <wc-chip-stats .chipConfig=${this.chipConfig.speed}></wc-chip-stats>
+        </div>
 
         <!-- <p>expeced character index ${this.expectedCharacterIndex}</p>
           <p>last inserted character ${this.lastCharacter}</p>
-          <p>value ${this.value}</p>
+          <p>value ${this.insertedText}</p>
           <p>quoteText ${this.quoteText}</p>
-          <p>equals? ${this.quoteText === `${this.value}#`}</p> -->
+          <p>equals? ${this.quoteText === `${this.insertedText}#`}</p> -->
       </div>
     `;
+  }
+
+  private updateChips(): void {
+    this.chipConfig = {
+      // update progress
+      completion: {
+        ...this.chipConfig.completion,
+        value: updateProgressService(this.quoteText?.length - 1, this.insertedText?.length),
+      },
+      // update score
+      score: {
+        ...this.chipConfig.score,
+        value: updateScoreService(this.chipConfig.score.value, this.lastCharacter, this.expectedCharacter),
+      },
+      // update speed
+      speed: {
+        ...this.chipConfig.speed,
+        value: this.updateSpeedService(),
+      },
+    };
+
+    // persist data (MVP NEXT)
   }
 
   private toggleCaret(status: 'on' | 'off') {
@@ -183,9 +239,9 @@ export class GameView extends LitElement {
   }
 
   private getKeyPress(event: KeyboardEvent): void {
-    console.log('TEST', event);
     this.lastCharacter = event.key;
 
+    this.updateChips();
     this.checkInsertedCharacter();
   }
 
@@ -200,7 +256,7 @@ export class GameView extends LitElement {
       this.highlightText(this.expectedCharacterIndex - 1);
       this.expectedCharacterIndex++;
       this.expectedCharacter = this.quoteText[this.expectedCharacterIndex];
-      this.value = `${this.value}${this.lastCharacter}`;
+      this.insertedText = `${this.insertedText}${this.lastCharacter}`;
     }
   }
 
@@ -228,7 +284,7 @@ export class GameView extends LitElement {
 // @keydown="${(event: KeyboardEvent): void => this.getKeyDown(event)}"
 // private getKeyDown(event: KeyboardEvent): void {
 //   if (event.key === 'Backspace') {
-//     this.value = this.value.slice(0, this.value.length - 1);
+//     this.insertedText = this.insertedText.slice(0, this.insertedText.length - 1);
 //     this.moveMarkerBackward([...this.quoteText], this.expectedCharacterIndex - 1);
 //     this.expectedCharacterIndex =
 //       this.expectedCharacterIndex === 1 ? this.expectedCharacterIndex : this.expectedCharacterIndex - 1;

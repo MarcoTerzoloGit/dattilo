@@ -1,5 +1,6 @@
 import { customElement, html, LitElement, property, TemplateResult } from 'lit-element';
 import { ChipStatsConfigInterface } from './chip-stats.interface';
+import '../../custom-icon/custom-icon';
 
 @customElement('wc-chip-stats')
 export class ChipStats extends LitElement {
@@ -12,11 +13,8 @@ export class ChipStats extends LitElement {
         :root {
         }
         .chip-container {
-          position: absolute;
-          top: 400px;
-          right: 300px;
           display: flex;
-          width: 200px;
+          width: 160px;
           justify-content: space-between;
           align-items: center;
           background-color: ${this.color};
@@ -42,18 +40,25 @@ export class ChipStats extends LitElement {
         }
 
         label {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           background-color: white;
           border-radius: 50%;
-          height: 52px;
-          width: 52px;
+          height: 36px;
+          width: 36px;
           color: ${this.color};
-          text-align: center;
-          line-height: 49px;
         }
       </style>
       <div class="chip-container">
-        <label>${this.chipConfig.label}</label
-        ><!-- TODO change with svg icon -->
+        <label>
+          <wc-custom-icon
+            color="${this.color}"
+            iconName="${this.chipConfig.label}"
+            height="20"
+            height="20"
+          ></wc-custom-icon>
+        </label>
         <div class="chip-content">${this.renderChipContent()}</div>
       </div>
     `;
