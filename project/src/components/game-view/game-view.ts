@@ -189,7 +189,7 @@ export class GameView extends LitElement {
         </div>
 
         <div class="box-container">
-          <div class="box" id="letter-box" style="${`background-color: ${generateColor()}`}">
+          <div class="box" data-qa="nextCharacter" id="letter-box" style="${`background-color: ${generateColor()}`}">
             <p>${this.expectedCharacter === ' ' ? '-' : this.expectedCharacter}</p>
           </div>
           <div class="box animated-character" id="animated-box">

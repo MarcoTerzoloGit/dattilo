@@ -13,6 +13,17 @@ Feature: Dattilo
         Given I access to app
         Then the system return correct quote and author
 
+
+    Scenario: current letter
+        Given I access to app
+        Then the system show the next letter
+
+    Scenario: mobile navBar
+        Given On mobile device
+        When I access to app
+        Then I see a menu closed that contain navbar
+
+
     Scenario: navbar
         Given I access to app
         Then I see a navbar
