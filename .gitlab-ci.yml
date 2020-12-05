@@ -1,4 +1,3 @@
-include: '/tests/.gitlab-ci.yml'
 stages:
   - build
   - test
@@ -13,3 +12,11 @@ jobDeploy:
   stage: deploy
   script:
     - echo "Job deploy eseguito"  
+
+jobTest:
+  image: cypress/base:10
+  stage: test
+  script:
+    - cd tests
+    - npm install
+    - npm run runHeadless
