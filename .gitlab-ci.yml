@@ -8,6 +8,11 @@ jobBuild:
   script:
     - echo "Job build eseguito"
 
+jobDeploy:
+  stage: deploy
+  script:
+    - echo "Job deploy eseguito"  
+
 jobTest:
   image: cypress/base:10
   stage: test
@@ -15,8 +20,3 @@ jobTest:
     - cd tests
     - npm install
     - npm run runHeadless
-
-jobDeploy:
-  stage: deploy
-  script:
-    - echo "Job deploy eseguito"  
