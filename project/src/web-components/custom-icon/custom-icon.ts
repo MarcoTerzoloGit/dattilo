@@ -28,7 +28,7 @@ export class CustomIcon extends LitElement {
       </style>
 
       <svg class="${this.iconName}" @click="${(): void => this.handleClick()}">
-        <use href="src/assets/mt-icons/symbol-defs.svg#${this.iconName}"></use>
+        <use href="/dist/static/assets/sprite.svg#${this.iconName}"></use>
       </svg>
     `;
   }
