@@ -1,19 +1,8 @@
 stages:
-  - build
   - test
-  - deploy
-
-jobBuild:
-  stage: build
-  script:
-    - echo "Job build eseguito"
-
-jobDeploy:
-  stage: deploy
-  script:
-    - echo "Job deploy eseguito"  
 
 jobTest:
+  when: delayed
   image: cypress/base:10
   stage: test
   script:
