@@ -8,5 +8,4 @@ test:
   script:
     - cd tests
     - npm install
-    - npm start & wait-on https://dattilo-testing.netlify.app
     - npm run runHeadless
