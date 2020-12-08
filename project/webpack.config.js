@@ -17,7 +17,7 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './',
+    contentBase: './dist/',
     publicPath: '/dist/',
   },
   module: {
@@ -55,7 +55,10 @@ module.exports = {
   },
   plugins: [
     new CopyPlugin({
-      patterns: [{ from: './src/assets/mt-icons/sprite.svg', to: 'static/assets' }],
+      patterns: [
+        { from: './src/assets/mt-icons/sprite.svg', to: 'static/assets' },
+        { from: './index.html', to: './' },
+      ],
     }),
   ],
 };
