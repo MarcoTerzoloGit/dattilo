@@ -1,11 +1,13 @@
+include: '/tests/.gitlab-ci.yml'
+
 stages:
   - test
 
-jobTest:
-  when: delayed
-  image: cypress/base:10
-  stage: test
-  script:
-    - cd tests
-    - npm install
-    - npm run runHeadless
+# jobTest:
+#   when: delayed
+#   image: cypress/base:10
+#   stage: test
+#   script:
+#     - cd tests
+#     - npm install
+#     - npm run runHeadless
