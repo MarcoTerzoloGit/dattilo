@@ -111,7 +111,7 @@ Then('the system show the next letter', function () {
         .find('div[class="content-container"]')
         .find('[data-qa="nextCharacter"] > p')
         .as('nextCharacter')
-        .should('have.text', arrayQuoteText[0].toUpperCase())
+        .should('have.text', arrayQuoteText[0])
 
     for (let i = 0; i < arrayQuoteText.length; i++) {
         cy.get('@writeText').type(arrayQuoteText[i], { force: true })
