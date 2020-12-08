@@ -40,22 +40,6 @@ module.exports = {
           },
         },
       },
-      // {
-      //   test: /\.svg$/,
-
-      //   // from all svg images
-      //   // include only sprite image
-      //   include: /.*sprite\.svg/,
-
-      //   use: [
-      //     {
-      //       loader: 'svg-sprite-loader',
-      //       options: {
-      //         publicPath: '',
-      //       },
-      //     },
-      //   ],
-      // },
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: [
@@ -69,7 +53,6 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
-
   plugins: [
     new CopyPlugin({
       patterns: [{ from: './src/assets/mt-icons/sprite.svg', to: 'static/assets' }],
