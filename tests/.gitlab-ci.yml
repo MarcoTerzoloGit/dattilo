@@ -2,9 +2,10 @@ image: cypress/base:10
 
 stages:
   - test
-  
+
 test:
   stage: test
   script:
+    - cd tests
     - npm install
     - npm run runHeadless
