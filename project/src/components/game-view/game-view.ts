@@ -208,7 +208,7 @@ export class GameView extends LitElement {
 
         <div class="chip-div">
           <wc-chip-stats .chipConfig=${this.chipConfig.completion}></wc-chip-stats>
-          <wc-chip-stats .chipConfig=${this.chipConfig.score}></wc-chip-stats>
+          <!-- <wc-chip-stats .chipConfig=${this.chipConfig.score}></wc-chip-stats> -->
           <wc-chip-stats .chipConfig=${this.chipConfig.speed}></wc-chip-stats>
         </div>
 
