@@ -6,6 +6,11 @@ import '../../web-components/chips/chip-stats/chip-stats';
 import { ChipStatsConfigInterface } from '../../web-components/chips/chip-stats/chip-stats.interface';
 import { updateProgressService, updateScoreService, updateSpeedService } from './services/update-stats.service';
 
+// import * as test from 'smtp-webcomponents';
+// debugger;
+// console.log(test);
+// customElements.define('wc-test-label', TestLabel);
+
 @customElement('game-view')
 export class GameView extends LitElement {
   @query('#letter-box')
@@ -71,26 +76,24 @@ export class GameView extends LitElement {
 
     return html`
       <style>
-        div {
-          margin: 20px;
-          font-size: 24px;
-          text-align: center;
-        }
-
         .content-container {
-          /* max-height: calc(100vh - 320px); */
-          padding-top: 20px;
+          padding: 40px;
           position: absolute;
           top: 60px;
           z-index: 1;
-          width: 98%;
+          width: 100%;
+          box-sizing: border-box !important;
         }
 
         .author-text {
+          display: flex;
+          justify-content: center;
+        }
+
+        .author-text p {
           font-size: 16px;
           font-style: italic;
           border-left: 4px solid #2aa9e2;
-          display: inline-block;
           padding-left: 4px;
         }
 
@@ -98,9 +101,13 @@ export class GameView extends LitElement {
           padding: 12px;
           margin-top: 40px;
           margin-bottom: 40px;
-          min-height: 40px;
+          min-height: 60px;
           box-shadow: 0px 0px 8px 0px #9e9e9e8a;
           border-radius: 20px;
+          border: none;
+          width: 100%;
+          box-sizing: border-box;
+          font-size: 16px;
         }
 
         .insert-text:focus {
@@ -183,19 +190,28 @@ export class GameView extends LitElement {
       </style>
       <div class="content-container">
         <wc-text-highlightable textWithMarker="${this.quoteText}"></wc-text-highlightable>
+
         <div class="author-text" data-qa="quote-author">
-          ${this.author}
+          <p>${this.author}</p>
         </div>
         <div
           data-qa="input-quote-text"
           class="insert-text"
           tabindex="-1"
-          @keypress="${(event: KeyboardEvent): void => this.getKeyPress(event)}"
+          @keypress="${(event: InputEvent): void => this.getKeyPress(event)}"
           @click="${(event: KeyboardEvent): void => this.toggleCaret('on')}"
           @blur="${(event: KeyboardEvent): void => this.toggleCaret('off')}"
         >
           ${this.insertedText}<wc-blinkin-cursor></wc-blinkin-cursor>
         </div>
+
+        <input
+          data-qa="input-quote-text"
+          class="insert-text"
+          type="text"
+          .value="${this.insertedText}"
+          @input="${(event: InputEvent): void => this.getKeyPress(event)}"
+        />
 
         <div class="box-container">
           <div class="box" data-qa="nextCharacter" id="letter-box" style="${`background-color: ${generateColor()}`}">
@@ -208,7 +224,7 @@ export class GameView extends LitElement {
 
         <div class="chip-div">
           <wc-chip-stats .chipConfig=${this.chipConfig.completion}></wc-chip-stats>
-          <!-- <wc-chip-stats .chipConfig=${this.chipConfig.score}></wc-chip-stats> -->
+          <wc-chip-stats .chipConfig=${this.chipConfig.score}></wc-chip-stats>
           <wc-chip-stats .chipConfig=${this.chipConfig.speed}></wc-chip-stats>
         </div>
 
@@ -247,8 +263,9 @@ export class GameView extends LitElement {
     this.textReady = status === 'on' ? true : false;
   }
 
-  private getKeyPress(event: KeyboardEvent): void {
-    this.lastCharacter = event.key;
+  private getKeyPress(event: InputEvent): void {
+    // debugger;
+    this.lastCharacter = event.data;
 
     this.updateChips();
     this.checkInsertedCharacter();

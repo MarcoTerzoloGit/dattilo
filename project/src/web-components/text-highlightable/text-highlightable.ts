@@ -12,6 +12,8 @@ export class TextHighlightable extends LitElement {
         }
         .text-highlightable {
           width: 100%;
+          font-size: 24px;
+          text-align: center;
         }
         .highlighted {
           border-bottom: 4px solid #36e10f;
