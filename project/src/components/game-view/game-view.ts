@@ -6,11 +6,6 @@ import '../../web-components/chips/chip-stats/chip-stats';
 import { ChipStatsConfigInterface } from '../../web-components/chips/chip-stats/chip-stats.interface';
 import { updateProgressService, updateScoreService, updateSpeedService } from './services/update-stats.service';
 
-// import * as test from 'smtp-webcomponents';
-// debugger;
-// console.log(test);
-// customElements.define('wc-test-label', TestLabel);
-
 @customElement('game-view')
 export class GameView extends LitElement {
   @query('#letter-box')
@@ -190,6 +185,7 @@ export class GameView extends LitElement {
       </style>
       <div class="content-container">
         <wc-text-highlightable textWithMarker="${this.quoteText}"></wc-text-highlightable>
+        <!-- <smtp-webcomponents></smtp-webcomponents> -->
 
         <div class="author-text" data-qa="quote-author">
           <p>${this.author}</p>
@@ -227,12 +223,6 @@ export class GameView extends LitElement {
           <wc-chip-stats .chipConfig=${this.chipConfig.score}></wc-chip-stats>
           <wc-chip-stats .chipConfig=${this.chipConfig.speed}></wc-chip-stats>
         </div>
-
-        <!-- <p>expeced character index ${this.expectedCharacterIndex}</p>
-          <p>last inserted character ${this.lastCharacter}</p>
-          <p>value ${this.insertedText}</p>
-          <p>quoteText ${this.quoteText}</p>
-          <p>equals? ${this.quoteText === `${this.insertedText}#`}</p> -->
       </div>
     `;
   }
