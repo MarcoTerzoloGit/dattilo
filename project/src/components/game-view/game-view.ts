@@ -102,7 +102,9 @@ export class GameView extends LitElement {
           border: none;
           width: 100%;
           box-sizing: border-box;
-          font-size: 16px;
+          font-size: 24px;
+          font-family: 'Noto Sans JP';
+          text-align: center;
         }
 
         .insert-text:focus {
@@ -147,18 +149,6 @@ export class GameView extends LitElement {
           justify-content: space-around;
         }
 
-        /* @-webkit-keyframes roll-out-right {
-          0% {
-            -webkit-transform: translateX(0) rotate(0deg);
-            transform: translateX(0) rotate(0deg);
-            opacity: 1;
-          }
-          100% {
-            -webkit-transform: translateX(1000px) rotate(540deg);
-            transform: translateX(1000px) rotate(540deg);
-            opacity: 0;
-          }
-        } */
         @keyframes roll-out-right {
           0% {
             -webkit-transform: translateX(0) rotate(0deg);
@@ -177,7 +167,19 @@ export class GameView extends LitElement {
             display: none;
           }
 
+          .insert-text {
+            margin-top: 20px;
+            font-size: 20px;
+          }
+
           .chip-div {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .chip-div.show {
+            display: flex;
             flex-direction: column;
             align-items: center;
           }
@@ -185,20 +187,9 @@ export class GameView extends LitElement {
       </style>
       <div class="content-container">
         <wc-text-highlightable textWithMarker="${this.quoteText}"></wc-text-highlightable>
-        <!-- <smtp-webcomponents></smtp-webcomponents> -->
 
         <div class="author-text" data-qa="quote-author">
           <p>${this.author}</p>
-        </div>
-        <div
-          data-qa="input-quote-text"
-          class="insert-text"
-          tabindex="-1"
-          @keypress="${(event: InputEvent): void => this.getKeyPress(event)}"
-          @click="${(event: KeyboardEvent): void => this.toggleCaret('on')}"
-          @blur="${(event: KeyboardEvent): void => this.toggleCaret('off')}"
-        >
-          ${this.insertedText}<wc-blinkin-cursor></wc-blinkin-cursor>
         </div>
 
         <input
@@ -218,7 +209,7 @@ export class GameView extends LitElement {
           </div>
         </div>
 
-        <div class="chip-div">
+        <div class=${`chip-div ${this.chipConfig.completion.value === 100 ? 'show' : ''}`}>
           <wc-chip-stats .chipConfig=${this.chipConfig.completion}></wc-chip-stats>
           <wc-chip-stats .chipConfig=${this.chipConfig.score}></wc-chip-stats>
           <wc-chip-stats .chipConfig=${this.chipConfig.speed}></wc-chip-stats>

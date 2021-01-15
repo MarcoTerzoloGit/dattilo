@@ -37,6 +37,7 @@ export class ChipStats extends LitElement {
           height: 12px;
           font-size: 8px;
           color: ${this.color};
+          text-align: center;
         }
 
         label {
