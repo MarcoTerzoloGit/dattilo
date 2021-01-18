@@ -223,7 +223,7 @@ export class GameView extends LitElement {
       // update progress
       completion: {
         ...this.chipConfig.completion,
-        value: updateProgressService(this.quoteText?.length - 1, this.insertedText?.length),
+        value: updateProgressService(this.quoteText?.length - 2, this.insertedText?.length),
       },
       // update score
       score: {
@@ -238,10 +238,6 @@ export class GameView extends LitElement {
     };
 
     // persist data (MVP NEXT)
-  }
-
-  private toggleCaret(status: 'on' | 'off') {
-    this.textReady = status === 'on' ? true : false;
   }
 
   private getKeyPress(event: InputEvent): void {

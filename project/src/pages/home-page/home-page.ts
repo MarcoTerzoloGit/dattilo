@@ -4,6 +4,7 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import '../../components/game-view/game-view';
 import '../../web-components/svg-footer/svg-footer';
+import '../../web-components/svg-wave/svg-wave';
 import '../../web-components/navbar/navbar';
 
 @customElement('home-page')
@@ -30,7 +31,7 @@ export class HomePage extends LitElement {
       <div class="page">
         <wc-navbar @navbarItemClick="${(event: any): void => this.handleRoutes(event)}"></wc-navbar>
         <game-view quoteText="${this.currentQuote}" author="${this.currentAuthor}"></game-view>
-        <wc-svg-footer></wc-svg-footer>
+        <wc-svg-wave></wc-svg-wave>
       </div>
     `;
   }

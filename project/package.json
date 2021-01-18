@@ -13,7 +13,8 @@
   "dependencies": {
     "lit-element": "^2.2.1",
     "rxjs": "^6.6.3",
-    "smtp-webcomponents": "^1.0.9"
+    "smtp-webcomponents": "^1.0.9",
+    "wavify": "^1.0.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.22.0",

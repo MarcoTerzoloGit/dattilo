@@ -1,5 +1,7 @@
 const updateProgressService = (textLength = 1, insertedCharacterLength = 100): number => {
-  return Math.round((insertedCharacterLength * 100) / textLength);
+  const percentage = Math.round((insertedCharacterLength * 100) / textLength);
+
+  return percentage > 100 ? 100 : percentage;
 };
 
 const updateScoreService = (previousValue = 0, lastCharacter: string, expectedCharacter: string): number => {

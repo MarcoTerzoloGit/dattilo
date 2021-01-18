@@ -2,7 +2,7 @@ import { customElement, html, LitElement, property, TemplateResult } from 'lit-e
 import '../custom-icon/custom-icon';
 @customElement('wc-navbar')
 export class Navbar extends LitElement {
-  @property() private menuItems: Array<string> = ['home', 'ladder', 'training', 'donate'];
+  @property() private menuItems: Array<string> = ['home', 'ladder', 'training', 'profile'];
   @property() private menuOpen: boolean;
 
   public render(): TemplateResult {
