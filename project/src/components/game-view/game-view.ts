@@ -15,6 +15,12 @@ export class GameView extends LitElement {
   private animatedBox: HTMLDivElement;
 
   @property()
+  private userName = '';
+
+  @property()
+  private userPassword = '';
+
+  @property()
   private insertedText = '';
 
   @property()
@@ -214,8 +220,47 @@ export class GameView extends LitElement {
           <wc-chip-stats .chipConfig=${this.chipConfig.score}></wc-chip-stats>
           <wc-chip-stats .chipConfig=${this.chipConfig.speed}></wc-chip-stats>
         </div>
+
+        <div>
+          <input
+            name="username"
+            type="text"
+            placeholder="user name"
+            .value="${this.userName}"
+            @input="${(event: InputEvent): any => (this.userName += event.data)}"
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="password"
+            .value="${this.userPassword}"
+            @input="${(event: InputEvent): any => (this.userPassword += event.data)}"
+          />
+          <button @click="${() => console.log('clicked')}">
+            login
+          </button>
+        </div>
       </div>
     `;
+  }
+
+  private async login() {
+    const response = await fetch('localhost:1337/auth/local', {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      // mode: 'cors', // no-cors, *cors, same-origin
+      // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      // credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      // redirect: 'follow', // manual, *follow, error
+      // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify({
+        identifier: 'pinco@pinco.it',
+        password: 'pinco@pinco.it',
+      }), // body data type must match "Content-Type" header
+    });
   }
 
   private updateChips(): void {
@@ -243,6 +288,8 @@ export class GameView extends LitElement {
   private getKeyPress(event: InputEvent): void {
     // debugger;
     this.lastCharacter = event.data;
+
+    console.log('---->', this.userName, this.userPassword);
 
     this.updateChips();
     this.checkInsertedCharacter();
