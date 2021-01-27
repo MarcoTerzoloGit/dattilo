@@ -236,7 +236,7 @@ export class GameView extends LitElement {
             .value="${this.userPassword}"
             @input="${(event: InputEvent): any => (this.userPassword += event.data)}"
           />
-          <button @click="${() => console.log('clicked')}">
+          <button @click="${() => this.login()}">
             login
           </button>
         </div>
@@ -245,7 +245,7 @@ export class GameView extends LitElement {
   }
 
   private async login() {
-    const response = await fetch('localhost:1337/auth/local', {
+    const response = await fetch('http://localhost:1337/auth/local', {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       // mode: 'cors', // no-cors, *cors, same-origin
       // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -260,7 +260,14 @@ export class GameView extends LitElement {
         identifier: 'pinco@pinco.it',
         password: 'pinco@pinco.it',
       }), // body data type must match "Content-Type" header
-    });
+    }).then(res => res.json());
+
+    console.log('response', response);
+  }
+
+  saveToken(token: string): void {
+    localStorage.setItem('user-token', token);
+    console.log('JWT token saved');
   }
 
   private updateChips(): void {
