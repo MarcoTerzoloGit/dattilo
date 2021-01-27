@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://dattilo.netlify.app/",
+  "baseUrl": "https://dattilo-testing.netlify.app/",
   "testFiles": "**/*.{feature,features}",
   "chromeWebSecurity": false,
   "requestTimeout": 30000,
