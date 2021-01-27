@@ -79,7 +79,7 @@ Then('I see a navbar', function () {
     cy.get('@navbar').find('[data-qa="ladder"]').should('be.visible')
     cy.get('@navbar').find('[data-qa="home"]').should('be.visible')
     cy.get('@navbar').find('[data-qa="training"]').should('be.visible')
-    cy.get('@navbar').find('[data-qa="donate"]').should('be.visible')
+    cy.get('@navbar').find('[data-qa="profile"]').should('be.visible')
 })
 
 Then('the system return correct quote and author', function () {
@@ -139,7 +139,7 @@ Then('I see a menu closed that contain navbar', function () {
     cy.get('@menuOpened').find('button[data-qa="home"]')
     cy.get('@menuOpened').find('button[data-qa="ladder"]')
     cy.get('@menuOpened').find('button[data-qa="training"]')
-    cy.get('@menuOpened').find('button[data-qa="donate"]')
+    cy.get('@menuOpened').find('button[data-qa="profile"]')
 })
 
 And('the system highlights the text writed', function () {
