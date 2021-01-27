@@ -5,7 +5,7 @@ import '../../custom-icon/custom-icon';
 @customElement('wc-chip-stats')
 export class ChipStats extends LitElement {
   @property() private chipConfig: ChipStatsConfigInterface;
-  @property() private color = '#32a9e2';
+  @property() private color = '#FFA500';
 
   public render(): TemplateResult {
     return html`
