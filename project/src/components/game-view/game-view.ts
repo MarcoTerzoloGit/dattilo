@@ -239,6 +239,9 @@ export class GameView extends LitElement {
           <button @click="${() => this.login()}">
             login
           </button>
+          <button @click="${() => this.createStats({})}">
+            create stats
+          </button>
         </div>
       </div>
     `;
@@ -262,12 +265,71 @@ export class GameView extends LitElement {
       }), // body data type must match "Content-Type" header
     }).then(res => res.json());
 
+    this.saveToken(response.jwt);
+    this.saveUserId(response.user.id);
+
     console.log('response', response);
+
+    this.getStatistics();
+  }
+
+  async createStats(stats: any): Promise<void> {
+    // TODO
+    // salavare statistiche di fine partita
+    // data
+    // info partita
+    // per user
+
+    const token = sessionStorage.getItem('user-token');
+    const userId = sessionStorage.getItem('user-id');
+
+    const response = await fetch(`http://localhost:1337/statistiches`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        lettersPerMinute: 999,
+        score: 9999,
+        matchMode: 'god mode',
+        date: '2021-01-27T11:00:00.000Z',
+        user: userId,
+      }),
+    }).then(res => res.json());
+
+    console.log('statistiches response', response);
   }
 
   saveToken(token: string): void {
-    localStorage.setItem('user-token', token);
+    sessionStorage.setItem('user-token', token);
     console.log('JWT token saved');
+  }
+
+  saveUserId(userId: string): void {
+    sessionStorage.setItem('user-id', userId);
+    console.log('User id saved');
+  }
+
+  async getStatistics(): Promise<void> {
+    const token = sessionStorage.getItem('user-token');
+    const userId = sessionStorage.getItem('user-id');
+
+    const response = await fetch(`http://localhost:1337/statistiches?user.id=${userId}`, {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      // mode: 'cors', // no-cors, *cors, same-origin
+      // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      // credentials: 'same-origin', // include, *same-origin, omit
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      // redirect: 'follow', // manual, *follow, error
+      // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    }).then(res => res.json());
+
+    console.log('statistiches response', response);
   }
 
   private updateChips(): void {
