@@ -15,6 +15,9 @@ export class GameView extends LitElement {
   private animatedBox: HTMLDivElement;
 
   @property()
+  private gameIsFinished = false;
+
+  @property()
   private userName = '';
 
   @property()
@@ -274,12 +277,6 @@ export class GameView extends LitElement {
   }
 
   async createStats(stats: any): Promise<void> {
-    // TODO
-    // salavare statistiche di fine partita
-    // data
-    // info partita
-    // per user
-
     const token = sessionStorage.getItem('user-token');
     const userId = sessionStorage.getItem('user-id');
 
@@ -290,10 +287,7 @@ export class GameView extends LitElement {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        lettersPerMinute: 999,
-        score: 9999,
-        matchMode: 'god mode',
-        date: '2021-01-27T11:00:00.000Z',
+        ...stats,
         user: userId,
       }),
     }).then(res => res.json());
@@ -356,12 +350,35 @@ export class GameView extends LitElement {
 
   private getKeyPress(event: InputEvent): void {
     // debugger;
+    if (this.gameIsFinished) {
+      return;
+    }
     this.lastCharacter = event.data;
 
     console.log('---->', this.userName, this.userPassword);
 
     this.updateChips();
     this.checkInsertedCharacter();
+    this.checkEndOfGame();
+    this.saveStatsWhenFinished();
+  }
+
+  private checkEndOfGame(): void {
+    if (this.chipConfig.completion.value == 100) {
+      this.gameIsFinished = true;
+    }
+  }
+
+  private saveStatsWhenFinished(): void {
+    if (this.gameIsFinished) {
+      const payload = {
+        lettersPerMinute: this.chipConfig.speed.value,
+        score: this.chipConfig.score.value,
+        matchMode: 'hardmode',
+        date: new Date().toISOString(),
+      };
+      this.createStats(payload);
+    }
   }
 
   private checkInsertedCharacter(): void {
