@@ -4,6 +4,8 @@ stages:
   - test
 
 test:
+  only:
+  - master
   stage: test
   script:
     - cd tests
